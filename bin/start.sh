@@ -13,6 +13,9 @@ BUILD_FILE_NAME="engine_$(date +%s)"
 PATH_TO_OUTPUT_FILE="./build/$BUILD_FILE_NAME"
 
 mkdir -p "./build"
+cd "./build"
+rm -rf engine_* 
+cd ..
 
 logger "LOG" "Compiling $PATH_TO_START_FILE..."
 
