@@ -1,0 +1,11 @@
+Checks: >
+  -*,
+  clang-analyzer-*,
+  modernize-*,
+  bugprone-*,
+  performance-*,
+  readability-*,
+  portability-*
+WarningsAsErrors: false
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: true
