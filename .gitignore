@@ -41,5 +41,5 @@
 *.dwo
 
 # builds
-./build
+build/
 
