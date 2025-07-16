@@ -14,7 +14,7 @@ Mesh::Mesh(const std::vector<float> &vertices) {
   glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0); // Важно: отвязываем VAO
+  glBindVertexArray(0);
 }
 
 void Mesh::draw() {
