@@ -1,47 +1,36 @@
+#include <GL/glew.h>
 #include "graphics/mesh.h"
 #include "shader/shader.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "domain/window.h"
 #include <iostream>
 
 int main() {
-  if (!glfwInit())
-    return -1;
+    Window window(800, 600, "Render Engine");
+    
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        std::cerr << "Failed to initialize GLEW" << std::endl;
+        return -1;
+    }
 
-  GLFWwindow *window =
-      glfwCreateWindow(800, 600, "Render Engine", nullptr, nullptr);
-  if (!window) {
-    glfwTerminate();
-    return -1;
-  }
+    std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
 
-  glfwMakeContextCurrent(window);
+    Shader shader("../assets/shaders/basic.vertex.glsl",
+                 "../assets/shaders/basic.frag.glsl");
 
-  glewExperimental = GL_TRUE;
-  if (glewInit() != GLEW_OK) {
-    std::cerr << "Failed to initialize GLEW" << std::endl;
-    return -1;
-  }
-
-  std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
-
-  Shader shader("../assets/shaders/basic.vertex.glsl",
-                "../assets/shaders/basic.frag.glsl");
-
-  std::vector<float> vertices = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
+    std::vector<float> vertices = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
                                  0.0f,  0.0f,  0.5f, 0.0f};
-  Mesh triangle(vertices);
+    Mesh triangle(vertices);
 
-  while (!glfwWindowShouldClose(window)) {
-    glClear(GL_COLOR_BUFFER_BIT);
+    while (!window.shouldClose()) {
+        window.clear();
 
-    shader.use();
-    triangle.draw();
+        shader.use();
+        triangle.draw();
 
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-  }
+        window.swapBuffers();
+        window.pollEvents();
+    }
 
-  glfwTerminate();
-  return 0;
+    return 0;
 }
