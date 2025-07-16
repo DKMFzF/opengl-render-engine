@@ -13,6 +13,7 @@ set(SOURCES
     src/main.cpp
     src/shader/shader.cpp
     src/graphics/mesh.cpp
+    src/domain/window.cpp
 )
 
 add_executable(engine ${SOURCES})
